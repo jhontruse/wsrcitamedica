@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,7 +109,7 @@ public class MenuController {
   @Operation(summary = "Registrar menu", description = "")
   @PostMapping("save")
   public ResponseEntity<Menu> saveMenu(
-      @Parameter(description = "Entity Menu", example = "", required = true) @RequestBody Menu menuRequest) {
+      @Parameter(description = "Entity Menu", example = "", required = true) @Valid @RequestBody Menu menuRequest) {
     log.info("********************************");
     log.info("********************************");
     log.info("MenuController - saveMenu");
@@ -123,7 +124,7 @@ public class MenuController {
   @Operation(summary = "Actualizar menu", description = "")
   @PutMapping("update")
   public ResponseEntity<Optional<Menu>> updateMenu(
-      @Parameter(description = "Entity Menu", example = "", required = true) @RequestBody Menu menuRequest) {
+      @Parameter(description = "Entity Menu", example = "", required = true) @Valid @RequestBody Menu menuRequest) {
     log.info("********************************");
     log.info("********************************");
     log.info("MenuController - updateMenu");
