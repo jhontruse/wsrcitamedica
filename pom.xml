@@ -98,11 +98,11 @@
 			<artifactId>spring-security-crypto</artifactId>
 		</dependency>
 		<!-- Model Mapper -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>3.2.0</version>
-		</dependency>
+		</dependency> -->
 		<!-- SpringDoc OpenAPI (Swagger) -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
