@@ -131,7 +131,6 @@ public class MenuService implements IMenuService {
         LocalDateTime.now(),
         menu.getIdMenu());
     log.info("ResponseRepository {}", ResponseRepository);
-
     return ResponseRepository == 1 ? Optional.ofNullable(menu) : null;
   }
 
