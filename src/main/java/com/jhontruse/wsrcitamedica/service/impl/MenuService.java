@@ -42,6 +42,7 @@ public class MenuService implements IMenuService {
     log.info("MenuService - findById");
     log.info("********************************");
     log.info("********************************");
+    log.info("id {}", id);
     Optional<Menu> menuOpt = iMenuRepository.findById(id).stream().findFirst();
     log.info("menuOpt {}", menuOpt);
     return menuOpt;
@@ -59,7 +60,7 @@ public class MenuService implements IMenuService {
     menu.setPadreIdMenu(
         menu.getPadreIdMenu() != null ? menu.getPadreIdMenu() : menu.getIdMenu().toString());
     log.info("menu {}", menu);
-    Integer ResponseRepository = iMenuRepository.saveMenu(
+    Integer responseRepository = iMenuRepository.saveMenu(
         menu.getIdMenu().toString(),
         menu.getNombreMenu(),
         menu.getRutaMenu(),
@@ -69,8 +70,8 @@ public class MenuService implements IMenuService {
         menu.getVisibleMenu(),
         menu.getActivoMenu(),
         menu.getFecCreacionMenu());
-    log.info("ResponseRepository {}", ResponseRepository);
-    return ResponseRepository == 1 ? menu : null;
+    log.info("responseRepository {}", responseRepository);
+    return responseRepository == 1 ? menu : null;
   }
 
   @Override
@@ -80,6 +81,7 @@ public class MenuService implements IMenuService {
     log.info("MenuService - findByNombreMenu");
     log.info("********************************");
     log.info("********************************");
+    log.info("nombreMenu {}", nombreMenu);
     Optional<Menu> menuOpt = iMenuRepository.findByNombreMenu(nombreMenu.toString()).stream().findFirst();
     log.info("menuOpt {}", menuOpt);
     return menuOpt;
