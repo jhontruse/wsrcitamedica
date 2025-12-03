@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table("MENU")
 public class Menu {
 
-  @Schema(description = "ID único de menu", example = "A87S6DA8D76AS8D68DA23")
+  @Schema(description = "ID único de menu", example = "")
   @Id
   @Column("ID_MENU")
   private String idMenu;
