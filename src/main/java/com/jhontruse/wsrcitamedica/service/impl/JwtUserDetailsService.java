@@ -57,6 +57,10 @@ public class JwtUserDetailsService implements UserDetailsService {
       int desbloqueo = iUsuarioRepository.executeUnloackUSuarioExpirate(username, TEMP_LOCK_MINUTES,
           LocalDateTime.now(ZoneId.of("America/Lima")));
       log.info("desbloqueo: {}", desbloqueo);
+      if (desbloqueo > 0) {
+        usuario = iUsuarioRepository.findByUsuario(username)
+            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+      }
     }
 
     List<Rol> roles = iRolRepository.executeUsuarioRolSearch(username);
