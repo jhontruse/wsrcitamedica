@@ -11,7 +11,7 @@ import com.jhontruse.wsrcitamedica.model.dto.ApiError;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-//PASO 10 -JWT
+// JWT - AUTH
 public final class ApiErrorFactory {
 
   private static final ZoneId LIMA = ZoneId.of("America/Lima");

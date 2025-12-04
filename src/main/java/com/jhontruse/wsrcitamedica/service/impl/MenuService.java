@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+// JWT - AUTH
 public class MenuService implements IMenuService {
 
   @Autowired
@@ -60,7 +61,7 @@ public class MenuService implements IMenuService {
     menu.setPadreIdMenu(
         menu.getPadreIdMenu() != null ? menu.getPadreIdMenu() : menu.getIdMenu().toString());
     log.info("menu {}", menu);
-    Integer responseRepository = iMenuRepository.saveMenu(
+    Integer responseRepository = iMenuRepository.executeSaveMenu(
         menu.getIdMenu().toString(),
         menu.getNombreMenu(),
         menu.getRutaMenu(),
@@ -121,7 +122,7 @@ public class MenuService implements IMenuService {
     log.info("********************************");
     log.info("********************************");
     log.info("menu {}", menu);
-    int ResponseRepository = iMenuRepository.updateMenu(
+    int ResponseRepository = iMenuRepository.executeUpdateMenu(
         menu.getRutaMenu(),
         menu.getIconoMenu(),
         menu.getOrdenMenu(),
@@ -145,6 +146,18 @@ public class MenuService implements IMenuService {
     iMenuRepository.deleteById(id);
     Optional<Menu> menu = iMenuRepository.findById(id).stream().findFirst();
     return menu;
+  }
+
+  @Override
+  public List<Menu> findByUsuarioMenu(String usuario) {
+    log.info("********************************");
+    log.info("********************************");
+    log.info("MenuService - findByUsuarioMenu");
+    log.info("********************************");
+    log.info("********************************");
+    List<Menu> menus = iMenuRepository.executeUsuarioMenuSearch(usuario).stream().toList();
+    log.info("menus {}", menus);
+    return menus;
   }
 
 }

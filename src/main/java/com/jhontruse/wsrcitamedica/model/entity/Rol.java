@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "Entidad que representa un rol en el sistema")
 @Table("ROL")
+// JWT - AUTH
 public class Rol {
 
   @Schema(description = "ID único de rol", example = "")

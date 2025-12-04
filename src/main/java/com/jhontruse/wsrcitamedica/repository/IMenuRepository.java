@@ -14,44 +14,49 @@ import org.springframework.stereotype.Repository;
 import com.jhontruse.wsrcitamedica.model.entity.Menu;
 
 @Repository
+// JWT - AUTH
 public interface IMenuRepository extends ListCrudRepository<Menu, String>,
-    PagingAndSortingRepository<Menu, String> {
+                PagingAndSortingRepository<Menu, String> {
 
-  List<Menu> findAll();
+        List<Menu> findAll();
 
-  Optional<Menu> findById(String id);
+        Optional<Menu> findById(String id);
 
-  Optional<Menu> findByNombreMenu(String nombreMenu);
+        Optional<Menu> findByNombreMenu(String nombreMenu);
 
-  List<Menu> findByActivoMenu(Boolean activoMenu);
+        List<Menu> findByActivoMenu(Boolean activoMenu);
 
-  List<Menu> findByVisibleMenu(Boolean visibleMenu);
+        List<Menu> findByVisibleMenu(Boolean visibleMenu);
 
-  @Modifying
-  @Query(value = "INSERT INTO DB_CITA_MEDICA.MENU (ID_MENU, NOMBRE_MENU, RUTA_MENU, ICONO_MENU, ORDEN_MENU, PADRE_ID_MENU, VISIBLE_MENU, ACTIVO_MENU, FEC_CREACION_MENU) VALUES (:idMenu, :nombreMenu, :rutaMenu, :iconoMenu, :ordenMenu, :padreIdMenu, :visibleMenu, :activoMenu, :fecCreacionMenu)", name = "saveMenu")
-  int saveMenu(
-      @Param("idMenu") String idMenu,
-      @Param("nombreMenu") String nombreMenu,
-      @Param("rutaMenu") String rutaMenu,
-      @Param("iconoMenu") String iconoMenu,
-      @Param("ordenMenu") Integer ordenMenu,
-      @Param("padreIdMenu") String padreIdMenu,
-      @Param("visibleMenu") Boolean visibleMenu,
-      @Param("activoMenu") Boolean activoMenu,
-      @Param("fecCreacionMenu") LocalDateTime fecCreacionMenu);
+        @Query("SELECT M.* FROM MENU M INNER JOIN ROL_MENU RM ON M.ID_MENU = RM.ID_MENU INNER JOIN ROL R ON R.ID_ROL = RM.ID_ROL INNER JOIN USUARIO_ROL UR ON UR.ID_ROL = R.ID_ROL INNER JOIN USUARIO U ON U.ID_USUARIO = UR.ID_USUARIO WHERE U.USUARIO = :usuario ORDER BY M.ORDEN_MENU")
+        List<Menu> executeUsuarioMenuSearch(
+                        @Param("usuario") String usuario);
 
-  @Modifying
-  @Query(value = "UPDATE MENU SET RUTA_MENU = :rutaMenu, ICONO_MENU = :iconoMenu, ORDEN_MENU = :ordenMenu, PADRE_ID_MENU = :padreIdMenu, VISIBLE_MENU = :visibleMenu, ACTIVO_MENU = :activoMenu, FEC_ACTUALIZA_MENU = :fecActualizaMenu WHERE ID_MENU = :idMenu", name = "updateMenu")
-  int updateMenu(
-      @Param("rutaMenu") String rutaMenu,
-      @Param("iconoMenu") String iconoMenu,
-      @Param("ordenMenu") Integer ordenMenu,
-      @Param("padreIdMenu") String padreIdMenu,
-      @Param("visibleMenu") Boolean visibleMenu,
-      @Param("activoMenu") Boolean activoMenu,
-      @Param("fecActualizaMenu") LocalDateTime fecActualizaMenu,
-      @Param("idMenu") String idMenu);
+        @Modifying
+        @Query(value = "INSERT INTO DB_CITA_MEDICA.MENU (ID_MENU, NOMBRE_MENU, RUTA_MENU, ICONO_MENU, ORDEN_MENU, PADRE_ID_MENU, VISIBLE_MENU, ACTIVO_MENU, FEC_CREACION_MENU) VALUES (:idMenu, :nombreMenu, :rutaMenu, :iconoMenu, :ordenMenu, :padreIdMenu, :visibleMenu, :activoMenu, :fecCreacionMenu)", name = "executeSaveMenu")
+        int executeSaveMenu(
+                        @Param("idMenu") String idMenu,
+                        @Param("nombreMenu") String nombreMenu,
+                        @Param("rutaMenu") String rutaMenu,
+                        @Param("iconoMenu") String iconoMenu,
+                        @Param("ordenMenu") Integer ordenMenu,
+                        @Param("padreIdMenu") String padreIdMenu,
+                        @Param("visibleMenu") Boolean visibleMenu,
+                        @Param("activoMenu") Boolean activoMenu,
+                        @Param("fecCreacionMenu") LocalDateTime fecCreacionMenu);
 
-  void deleteById(String id);
+        @Modifying
+        @Query(value = "UPDATE MENU SET RUTA_MENU = :rutaMenu, ICONO_MENU = :iconoMenu, ORDEN_MENU = :ordenMenu, PADRE_ID_MENU = :padreIdMenu, VISIBLE_MENU = :visibleMenu, ACTIVO_MENU = :activoMenu, FEC_ACTUALIZA_MENU = :fecActualizaMenu WHERE ID_MENU = :idMenu", name = "executeUpdateMenu")
+        int executeUpdateMenu(
+                        @Param("rutaMenu") String rutaMenu,
+                        @Param("iconoMenu") String iconoMenu,
+                        @Param("ordenMenu") Integer ordenMenu,
+                        @Param("padreIdMenu") String padreIdMenu,
+                        @Param("visibleMenu") Boolean visibleMenu,
+                        @Param("activoMenu") Boolean activoMenu,
+                        @Param("fecActualizaMenu") LocalDateTime fecActualizaMenu,
+                        @Param("idMenu") String idMenu);
+
+        void deleteById(String id);
 
 }

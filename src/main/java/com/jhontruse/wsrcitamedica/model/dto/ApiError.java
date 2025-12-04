@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
-//PASO 7 -JWT
+// JWT - AUTH
 @Value
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)

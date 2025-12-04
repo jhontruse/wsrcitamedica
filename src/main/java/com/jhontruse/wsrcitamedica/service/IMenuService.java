@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.jhontruse.wsrcitamedica.model.entity.Menu;
 
+// JWT - AUTH
 public interface IMenuService {
 
   List<Menu> findAll();
@@ -22,5 +23,7 @@ public interface IMenuService {
   Optional<Menu> updateMenu(Menu menu);
 
   Optional<Menu> deleteById(String id);
+
+  List<Menu> findByUsuarioMenu(String usuario);
 
 }

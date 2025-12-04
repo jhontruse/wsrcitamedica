@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+// JWT - AUTH
 public class UsuarioService implements IUsuarioService {
 
   @Autowired
@@ -114,9 +115,10 @@ public class UsuarioService implements IUsuarioService {
     usuario.setFecCuentaExpiradaUsuario(LocalDateTime.now().plusYears(1));
     usuario.setFecPasswordExpiradaUsuario(LocalDateTime.now().plusYears(1));
     usuario.setIntentoFallidoLoginUsuario(0);
+    // usuario.setPassword(bcrypt.encode(usuario.getPassword()));
     log.info("usuario {}", usuario);
 
-    Integer responseRepository = iUsuarioRepository.saveUsuario(
+    Integer responseRepository = iUsuarioRepository.executeSaveUsuario(
         usuario.getIdUsuario().toString(),
         usuario.getUsuario(),
         usuario.getPassword(),
@@ -139,7 +141,7 @@ public class UsuarioService implements IUsuarioService {
     log.info("********************************");
     usuario.setFecActualizaUsuario(LocalDateTime.now());
     log.info("usuario {}", usuario);
-    int ResponseRepository = iUsuarioRepository.updateUsuario(
+    int ResponseRepository = iUsuarioRepository.executeUpdateUsuario(
         usuario.getUsuario(),
         usuario.getActivoUsuario(),
         usuario.getLockedUsuario(),

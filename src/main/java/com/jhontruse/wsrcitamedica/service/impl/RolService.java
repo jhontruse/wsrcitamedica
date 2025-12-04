@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+// JWT - AUTH
 public class RolService implements IRolService {
 
   @Autowired
@@ -84,7 +85,7 @@ public class RolService implements IRolService {
     rol.setIdRol(UUID.randomUUID().toString());
     rol.setFecCreacionRol(LocalDateTime.now());
     log.info("rol {}", rol);
-    Integer responseRepository = iRolRepository.saveRol(
+    Integer responseRepository = iRolRepository.executeSaveRol(
         rol.getIdRol().toString(),
         rol.getNombreRol(),
         rol.getDescripcionRol(),
@@ -102,7 +103,7 @@ public class RolService implements IRolService {
     log.info("********************************");
     log.info("********************************");
     log.info("rol {}", rol);
-    int ResponseRepository = iRolRepository.updateRol(
+    int ResponseRepository = iRolRepository.executeUpdateRol(
         rol.getNombreRol(),
         rol.getDescripcionRol(),
         rol.getActivoRol(),

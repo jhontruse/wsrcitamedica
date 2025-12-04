@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "Entidad que representa un menú en el sistema")
 @Table("MENU")
+// JWT - AUTH
 public class Menu {
 
   @Schema(description = "ID único de menu", example = "")
