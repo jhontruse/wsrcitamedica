@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jhontruse.wsrcitamedica.model.dto.UsuarioDTO;
 import com.jhontruse.wsrcitamedica.model.entity.Usuario;
 import com.jhontruse.wsrcitamedica.service.IUsuarioService;
 
@@ -48,6 +49,18 @@ public class UsuarioController {
     log.info("********************************");
     List<Usuario> usuarios = iUsuarioService.findAll();
     return ResponseEntity.ok(usuarios);
+  }
+
+  @Operation(summary = "Buscar usuario", description = "")
+  @GetMapping("find/all/dto")
+  public ResponseEntity<List<UsuarioDTO>> findAllUsuarioDTO() {
+    log.info("********************************");
+    log.info("********************************");
+    log.info("UsuarioController - findAllUsuarioDTO");
+    log.info("********************************");
+    log.info("********************************");
+    List<UsuarioDTO> usuariosDTO = iUsuarioService.findAllUsuarioDTO();
+    return ResponseEntity.ok(usuariosDTO);
   }
 
   @Operation(summary = "Buscar id", description = "")

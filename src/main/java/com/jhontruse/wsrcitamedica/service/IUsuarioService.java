@@ -3,6 +3,7 @@ package com.jhontruse.wsrcitamedica.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.jhontruse.wsrcitamedica.model.dto.UsuarioDTO;
 import com.jhontruse.wsrcitamedica.model.entity.Usuario;
 
 public interface IUsuarioService {
@@ -24,5 +25,7 @@ public interface IUsuarioService {
   Optional<Usuario> updateUsuario(Usuario usuario);
 
   Optional<Usuario> deleteById(String id);
+
+  List<UsuarioDTO> findAllUsuarioDTO();
 
 }

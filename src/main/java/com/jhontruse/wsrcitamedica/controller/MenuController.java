@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +66,7 @@ public class MenuController {
   }
 
   @Operation(summary = "Buscar menu", description = "")
+  @PreAuthorize("@authorizeLogic.hasAccess('findByNombreMenuMenu')")
   @GetMapping("find/nombre_menu/{nombre_menu}")
   public ResponseEntity<Optional<Menu>> findByNombreMenuMenu(
       @Parameter(description = "Nombre menu a buscar", example = "", required = true) @PathVariable("nombre_menu") String nombre_menu) {

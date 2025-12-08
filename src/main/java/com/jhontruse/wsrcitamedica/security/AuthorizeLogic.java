@@ -24,37 +24,14 @@ public class AuthorizeLogic {
         // Usa nombres cortos y consistentes; evita hardcodear en switches.
         private static final Map<String, Set<String>> REQUIRED_ROLES = Map.ofEntries(
                         // Usuarios: administración completa
-                        Map.entry("findMenuByUsername",
+                        Map.entry("findByNombreMenuMenu",
                                         roles("ADMIN", "PROFESOR")),
                         Map.entry("findPersonaByUsername",
                                         roles("ADMIN",
                                                         "PROFESOR")),
                         Map.entry("findUsuarioByUsername",
                                         roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("getUsuarioAll",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("getUsuarioRolMenuPersonaDTOAByRolAndEstado",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("getUsuarioRolMenuPersonaDTOByDni",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("getUsuarioAllDTO",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("updateActivoByUUID",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("getRolAll",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("findById",
-                                        roles("ADMIN",
-                                                        "PROFESOR")),
-                        Map.entry("getBydId",
-                                        roles("ADMIN", "PROFESOR"))
+                                                        "PROFESOR"))
 
         // Si no se encuentra la clave, abajo hay un default (ROOT)
         );

@@ -1,14 +1,23 @@
 package com.jhontruse.wsrcitamedica.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.jhontruse.wsrcitamedica.model.dto.UsuarioDTO;
+import com.jhontruse.wsrcitamedica.model.entity.Menu;
+import com.jhontruse.wsrcitamedica.model.entity.Rol;
 import com.jhontruse.wsrcitamedica.model.entity.Usuario;
+import com.jhontruse.wsrcitamedica.repository.IMenuRepository;
+import com.jhontruse.wsrcitamedica.repository.IRolRepository;
 import com.jhontruse.wsrcitamedica.repository.IUsuarioRepository;
 import com.jhontruse.wsrcitamedica.service.IUsuarioService;
 
@@ -23,6 +32,15 @@ public class UsuarioService implements IUsuarioService {
 
   @Autowired
   private IUsuarioRepository iUsuarioRepository;
+
+  @Autowired
+  private IMenuRepository iMenuRepository;
+
+  @Autowired
+  private IRolRepository iRolRepository;
+
+  @Autowired
+  private final PasswordEncoder bcrypt;
 
   @Override
   public List<Usuario> findAll() {
@@ -115,7 +133,7 @@ public class UsuarioService implements IUsuarioService {
     usuario.setFecCuentaExpiradaUsuario(LocalDateTime.now().plusYears(1));
     usuario.setFecPasswordExpiradaUsuario(LocalDateTime.now().plusYears(1));
     usuario.setIntentoFallidoLoginUsuario(0);
-    // usuario.setPassword(bcrypt.encode(usuario.getPassword()));
+    usuario.setPassword(bcrypt.encode(usuario.getPassword()));
     log.info("usuario {}", usuario);
 
     Integer responseRepository = iUsuarioRepository.executeSaveUsuario(
@@ -162,6 +180,38 @@ public class UsuarioService implements IUsuarioService {
     iUsuarioRepository.deleteById(id);
     Optional<Usuario> usuario = iUsuarioRepository.findById(id).stream().findFirst();
     return usuario;
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<UsuarioDTO> findAllUsuarioDTO() {
+    log.info("********************************");
+    log.info("********************************");
+    log.info("UsuarioService - findAllUsuarioDTO");
+    log.info("********************************");
+    log.info("********************************");
+
+    List<Usuario> usuarios = iUsuarioRepository.findAll();
+
+    log.info("usuarios {}", usuarios);
+
+    return usuarios.stream()
+        .map(usuario -> {
+          usuario.setPassword(null);
+          log.info("usuario {}", usuario);
+          Optional<Rol> rol = iRolRepository.executeUsuarioRolSearch(usuario.getUsuario()).stream().findFirst();
+          log.info("rol {}", rol);
+          List<Menu> menus = iMenuRepository.executeUsuarioMenuSearch(usuario.getUsuario());
+          log.info("menus {}", menus);
+          // Construir DTO
+          return UsuarioDTO.builder()
+              .usuario(usuario)
+              .rol(rol)
+              .menu(menus)
+              .build();
+        })
+        .sorted(Comparator.comparing(dto -> dto.getUsuario().getUsuario()))
+        .collect(Collectors.toList());
   }
 
 }
