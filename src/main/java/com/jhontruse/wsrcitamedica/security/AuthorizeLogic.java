@@ -1,5 +1,7 @@
 package com.jhontruse.wsrcitamedica.security;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -80,7 +82,7 @@ public class AuthorizeLogic {
                 log.info("userRoles: {}", userRoles);
 
                 // ¿Hay intersección entre los roles del usuario y los requeridos?
-                return !java.util.Collections.disjoint(userRoles, required);
+                return !Collections.disjoint(userRoles, required);
         }
 
         // ---------- Helpers ----------
@@ -91,7 +93,7 @@ public class AuthorizeLogic {
                 log.info("AuthorizeLogic - roles");
                 log.info("********************************");
                 log.info("********************************");
-                return java.util.Arrays.stream(roles)
+                return Arrays.stream(roles)
                                 .map(AuthorizeLogic::normalizeRole)
                                 .collect(Collectors.toUnmodifiableSet());
         }
