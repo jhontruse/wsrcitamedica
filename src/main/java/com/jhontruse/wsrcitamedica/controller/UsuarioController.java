@@ -93,11 +93,11 @@ public class UsuarioController {
 
   @Operation(summary = "Buscar usuario", description = "")
   @GetMapping("find/activo/{activo}")
-  public ResponseEntity<List<Usuario>> findByActivoUsuarioUsuario(
+  public ResponseEntity<List<Usuario>> findByActivoUsuario(
       @Parameter(description = "Activo usuario a buscar", example = "", required = true) @PathVariable("activo") Boolean activo) {
     log.info("********************************");
     log.info("********************************");
-    log.info("UsuarioController - findByActivoUsuarioUsuario");
+    log.info("UsuarioController - findByActivoUsuario");
     log.info("********************************");
     log.info("********************************");
     log.info("activo: {}", activo);

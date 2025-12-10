@@ -179,6 +179,7 @@ public class UsuarioService implements IUsuarioService {
     log.info("id {}", id);
     iUsuarioRepository.deleteById(id);
     Optional<Usuario> usuario = iUsuarioRepository.findById(id).stream().findFirst();
+    log.info("usuario {}", usuario);
     return usuario;
   }
 

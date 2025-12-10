@@ -48,7 +48,7 @@ public interface IUsuarioRepository extends ListCrudRepository<Usuario, String>,
         @Modifying
         @Query(value = "UPDATE USUARIO "
                         + " SET USUARIO= :usuario, ACTIVO_USUARIO=:activoUsuario, LOCKED_USUARIO=:lockedUsuario, FEC_ACTUALIZA_USUARIO= :fecActualizaUsuario  "
-                        + " WHERE ID_USUARIO = :idUsuario ", name = "ejecutarActualizarUsuario")
+                        + " WHERE ID_USUARIO = :idUsuario ", name = "executeUpdateUsuario")
         int executeUpdateUsuario(
                         @Param("usuario") String usuario,
                         @Param("activoUsuario") Boolean activoUsuario,
