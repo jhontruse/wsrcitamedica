@@ -28,4 +28,6 @@ public interface IUsuarioService {
 
   List<UsuarioDTO> findAllUsuarioDTO();
 
+  Optional<UsuarioDTO> findAllUsuarioDTO(String idUsuario);
+
 }

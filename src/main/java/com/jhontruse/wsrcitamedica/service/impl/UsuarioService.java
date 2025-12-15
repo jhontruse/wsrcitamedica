@@ -200,7 +200,7 @@ public class UsuarioService implements IUsuarioService {
         .map(usuario -> {
           usuario.setPassword(null);
           log.info("usuario {}", usuario);
-          Optional<Rol> rol = iRolRepository.executeUsuarioRolSearch(usuario.getUsuario()).stream().findFirst();
+          List<Rol> rol = iRolRepository.executeUsuarioRolSearch(usuario.getUsuario());
           log.info("rol {}", rol);
           List<Menu> menus = iMenuRepository.executeUsuarioMenuSearch(usuario.getUsuario());
           log.info("menus {}", menus);
@@ -213,6 +213,36 @@ public class UsuarioService implements IUsuarioService {
         })
         .sorted(Comparator.comparing(dto -> dto.getUsuario().getUsuario()))
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public Optional<UsuarioDTO> findAllUsuarioDTO(String idUsuario) {
+    log.info("********************************");
+    log.info("********************************");
+    log.info("UsuarioService - findAllUsuarioDTO");
+    log.info("********************************");
+    log.info("********************************");
+    log.info("idUsuario {}", idUsuario);
+
+    Optional<Usuario> usuarios = iUsuarioRepository.findById(idUsuario);
+
+    log.info("usuarios {}", usuarios);
+
+    return usuarios
+        .map(usuario -> {
+          usuario.setPassword(null);
+          log.info("usuario {}", usuario);
+          List<Rol> rol = iRolRepository.executeUsuarioRolSearch(usuario.getUsuario());
+          log.info("rol {}", rol);
+          List<Menu> menus = iMenuRepository.executeUsuarioMenuSearch(usuario.getUsuario());
+          log.info("menus {}", menus);
+          // Construir DTO
+          return UsuarioDTO.builder()
+              .usuario(usuario)
+              .rol(rol)
+              .menu(menus)
+              .build();
+        });
   }
 
 }

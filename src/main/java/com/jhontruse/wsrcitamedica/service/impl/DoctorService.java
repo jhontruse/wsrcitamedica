@@ -8,10 +8,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.jhontruse.wsrcitamedica.model.dto.DoctorDTO;
+import com.jhontruse.wsrcitamedica.model.dto.UsuarioDTO;
 import com.jhontruse.wsrcitamedica.model.entity.Doctor;
 import com.jhontruse.wsrcitamedica.repository.IDoctorRepository;
 import com.jhontruse.wsrcitamedica.service.IDoctorService;
+import com.jhontruse.wsrcitamedica.service.IUsuarioService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +27,9 @@ public class DoctorService implements IDoctorService {
 
   @Autowired
   private IDoctorRepository iDoctorRepository;
+
+  @Autowired
+  private IUsuarioService iUsuarioService;
 
   @Override
   public List<Doctor> findAll() {
@@ -194,6 +201,35 @@ public class DoctorService implements IDoctorService {
     Optional<Doctor> doctorOpt = iDoctorRepository.findById(id).stream().findFirst();
     log.info("doctorOpt {}", doctorOpt);
     return doctorOpt;
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<DoctorDTO> findAllDoctorDTO() {
+    log.info("********************************");
+    log.info("********************************");
+    log.info("IDoctorRepository - findAllDoctorDTO");
+    log.info("********************************");
+    log.info("********************************");
+
+    List<Doctor> doctores = iDoctorRepository.findAll();
+
+    log.info("doctores {}", doctores);
+
+    List<DoctorDTO> doctoresDTO = doctores.stream()
+        .map(doc -> {
+          Optional<UsuarioDTO> usuDTO = iUsuarioService.findAllUsuarioDTO(doc.getIdUsuario()).stream().findFirst();
+          log.info("usuDTO {}", usuDTO);
+          return DoctorDTO.builder()
+              .doctor(doc)
+              .usuarioDTO(usuDTO.orElse(null))
+              .build();
+        })
+        .toList();
+
+    log.info("doctoresDTO {}", doctoresDTO);
+
+    return doctoresDTO;
   }
 
 }

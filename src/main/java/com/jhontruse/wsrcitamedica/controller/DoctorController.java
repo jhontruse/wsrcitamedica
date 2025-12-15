@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jhontruse.wsrcitamedica.model.dto.DoctorDTO;
 import com.jhontruse.wsrcitamedica.model.entity.Doctor;
-import com.jhontruse.wsrcitamedica.model.entity.Usuario;
 import com.jhontruse.wsrcitamedica.service.IDoctorService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,6 +50,19 @@ public class DoctorController {
     List<Doctor> doctores = iDoctorService.findAll();
     log.info("doctores: {}", doctores);
     return ResponseEntity.ok(doctores);
+  }
+
+  @Operation(summary = "Buscar doctor", description = "")
+  @GetMapping("find/all/dto")
+  public ResponseEntity<List<DoctorDTO>> findAllDoctorDTO() {
+    log.info("********************************");
+    log.info("********************************");
+    log.info("DoctorController - findAllDoctorDTO");
+    log.info("********************************");
+    log.info("********************************");
+    List<DoctorDTO> doctoresDTO = iDoctorService.findAllDoctorDTO();
+    log.info("doctoresDTO: {}", doctoresDTO);
+    return ResponseEntity.ok(doctoresDTO);
   }
 
   @Operation(summary = "Buscar doctor", description = "")

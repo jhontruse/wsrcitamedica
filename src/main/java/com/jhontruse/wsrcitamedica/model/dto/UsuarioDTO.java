@@ -1,7 +1,6 @@
 package com.jhontruse.wsrcitamedica.model.dto;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.jhontruse.wsrcitamedica.model.entity.Menu;
 import com.jhontruse.wsrcitamedica.model.entity.Rol;
@@ -20,7 +19,7 @@ public class UsuarioDTO {
 
   private Usuario usuario;
 
-  private Optional<Rol> rol;
+  private List<Rol> rol;
 
   private List<Menu> menu;
 

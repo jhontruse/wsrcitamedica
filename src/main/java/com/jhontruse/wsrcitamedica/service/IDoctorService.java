@@ -3,6 +3,7 @@ package com.jhontruse.wsrcitamedica.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.jhontruse.wsrcitamedica.model.dto.DoctorDTO;
 import com.jhontruse.wsrcitamedica.model.entity.Doctor;
 
 public interface IDoctorService {
@@ -26,5 +27,7 @@ public interface IDoctorService {
   Optional<Doctor> executeUpdateDoctor(Doctor doctor);
 
   Optional<Doctor> deleteById(String id);
+
+  List<DoctorDTO> findAllDoctorDTO();
 
 }
